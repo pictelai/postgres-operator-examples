@@ -16,3 +16,16 @@ patchesStrategicMerge:
           env:
           - name: CRUNCHY_DEBUG
             value: "false"
+- |-
+  apiVersion: apps/v1
+  kind: Deployment
+  metadata:
+    name: pgo-upgrade
+  spec:
+    template:
+      spec:
+        containers:
+        - name: operator
+          env:
+          - name: CRUNCHY_DEBUG
+            value: "false"
