@@ -1,31 +1,49 @@
 resources:
-- manager.yaml
-- manager-upgrade.yaml
+  - manager.yaml
+  - manager-upgrade.yaml
 
 patchesStrategicMerge:
-- |-
-  apiVersion: apps/v1
-  kind: Deployment
-  metadata:
-    name: pgo
-  spec:
-    template:
-      spec:
-        containers:
-        - name: operator
-          env:
-          - name: CRUNCHY_DEBUG
-            value: "false"
-- |-
-  apiVersion: apps/v1
-  kind: Deployment
-  metadata:
-    name: pgo-upgrade
-  spec:
-    template:
-      spec:
-        containers:
-        - name: operator
-          env:
-          - name: CRUNCHY_DEBUG
-            value: "false"
+  - |-
+    apiVersion: apps/v1
+    kind: Deployment
+    metadata:
+      name: pgo
+    spec:
+      template:
+        spec:
+          nodeSelector:
+            cloud.google.com/gke-spot: "true"
+          containers:
+          - name: operator
+            resources:
+              requests:
+                cpu: 200m
+                memory: 256Mi
+              limits:
+                cpu: 400m
+                memory: 512Mi  
+            env:
+            - name: CRUNCHY_DEBUG
+              value: "false"
+  - |-
+    apiVersion: apps/v1
+    kind: Deployment
+    metadata:
+      name: pgo-upgrade
+    spec:
+      template:
+        spec:
+          nodeSelector:
+            cloud.google.com/gke-spot: "true"
+          containers:
+          - name: operator
+            resources:
+              requests:
+                cpu: 200m
+                memory: 256Mi
+              limits:
+                cpu: 400m
+                memory: 512Mi  
+            env:
+            - name: CRUNCHY_DEBUG
+              value: "false"
