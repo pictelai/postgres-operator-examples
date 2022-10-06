@@ -11,17 +11,8 @@ patchesStrategicMerge:
     spec:
       template:
         spec:
-          nodeSelector:
-            cloud.google.com/gke-spot: "true"
           containers:
           - name: operator
-            resources:
-              requests:
-                cpu: 200m
-                memory: 256Mi
-              limits:
-                cpu: 400m
-                memory: 512Mi  
             env:
             - name: CRUNCHY_DEBUG
               value: "false"
@@ -33,17 +24,8 @@ patchesStrategicMerge:
     spec:
       template:
         spec:
-          nodeSelector:
-            cloud.google.com/gke-spot: "true"
           containers:
           - name: operator
-            resources:
-              requests:
-                cpu: 200m
-                memory: 256Mi
-              limits:
-                cpu: 400m
-                memory: 512Mi  
             env:
             - name: CRUNCHY_DEBUG
               value: "false"
